@@ -86,9 +86,6 @@ label {
     margin-top: 8px;
     gap: 4px;
     color:#D71D1D;
-}
-
-.error-message {
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
@@ -96,6 +93,10 @@ label {
     vertical-align: middle;
 }
 
-.custom-input-group:has(.error-message) > label {
+/* .custom-input-group:has(.error-message) > label {
+    color: #D71D1D;
+} */
+
+.text-danger-label {
     color: #D71D1D;
 }
