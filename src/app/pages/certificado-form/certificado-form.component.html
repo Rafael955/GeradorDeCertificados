@@ -21,7 +21,7 @@
                 <label for="atividade" class="form-label">Atividade</label>
                 <input [(ngModel)]="atividade" name="atividade" #atividadeRef="ngModel" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida">
             </div>
-            <app-secondary-button (click)="adicionarAtividade()" [disabled]="atividade.length == 0" textoBotao="Adicionar" phClass="ph ph-plus"></app-secondary-button>
+            <app-secondary-button (click)="adicionarAtividade()" [disabled]="!atividade || atividade.length == 0" textoBotao="Adicionar" phClass="ph ph-plus"></app-secondary-button>
         </div>
         <div class="atividade-group">
             <label class="form-label">Lista de atividades</label>

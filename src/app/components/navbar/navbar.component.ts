@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 
@@ -6,7 +7,8 @@ import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
   imports: [
     RouterLink,
     RouterLinkActive,
-    RouterModule
+    RouterModule,
+    NgClass
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
