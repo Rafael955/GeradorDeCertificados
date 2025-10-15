@@ -1,59 +1,68 @@
-# GeradorCertificado
+# Gerador Certificado
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+Este projeto é uma aplicação Angular para geração de certificados.
 
-## Development server
+## Estrutura do Projeto
 
-To start a local development server, run:
+- **src/**: Código-fonte principal
+  - **main.ts**: Ponto de entrada da aplicação
+  - **styles.css**: Estilos globais
+  - **index.html**: HTML principal
+  - **app/**: Módulo principal da aplicação
+    - **app.component.\***: Componente raiz
+    - **app.config.ts**: Configurações da aplicação 
+    - **app.routes.ts**: Rotas da aplicação
+    - **components/**: Componentes reutilizáveis
+    - **interfaces/**: Interfaces TypeScript
+    - **pages/**: Páginas da aplicação
+    - **services/**: Serviços de negócio e integração
+- **public/**: Recursos públicos (ex: imagens, certificados, navbar)
+- **.angular/**: Cache do Angular
+- **.vscode/**: Configurações do Visual Studio Code
 
-```bash
-ng serve
-```
+## Scripts
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `npm install`: Instala as dependências
+- `npm start`: Inicia o servidor de desenvolvimento
+- `npm run build`: Compila o projeto para produção
+- `npm test`: Executa os testes unitários
 
-## Code scaffolding
+## Configuração
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **angular.json**: Configurações do Angular CLI
+- **tsconfig.json**: Configuração do TypeScript
+- **netlify.toml**: Configuração de deploy no Netlify
+- **.editorconfig**: Padrões de formatação
+- **.gitignore**: Arquivos ignorados pelo Git
 
-```bash
-ng generate component component-name
-```
+## Testes
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Os testes unitários estão localizados em arquivos `*.spec.ts` dentro da pasta `src/app/`.
 
-```bash
-ng generate --help
-```
+## Deploy
 
-## Building
+O projeto pode ser facilmente publicado no Netlify utilizando o arquivo `netlify.toml`.
 
-To build the project run:
+## Como rodar localmente
 
-```bash
-ng build
-```
+1. Instale as dependências:
+   ```sh
+   npm install
+   ```
+2. Inicie o servidor de desenvolvimento:
+   ```sh
+   npm start
+   ```
+3. Acesse `http://localhost:4200` no navegador.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Licença
 
-## Running unit tests
+Este projeto está sob licença MIT.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Deploy do Projeto
 
-```bash
-ng test
-```
+https://geradordcertificados.netlify.app
 
-## Running end-to-end tests
+![Demonstração](public/demo.gif)
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
