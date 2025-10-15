@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Certificado } from '../../interfaces/certificado';
 import { CertificadoService } from '../../services/certificado.service';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-certificado-form',
@@ -21,7 +22,9 @@ import { v4 as uuidv4 } from 'uuid';
 export class CertificadoFormComponent {
   @ViewChild('form') form! : NgForm
 
-  constructor(private certificadoService: CertificadoService) {}
+  constructor(
+    private certificadoService: CertificadoService,
+    private route: Router) {}
 
   certificado: Certificado = {
     id: "",
@@ -60,8 +63,11 @@ export class CertificadoFormComponent {
 
     this.certificadoService.adicionarCertificado(this.certificado);
 
-    this.certificado = this.resetFormulario();
-    this.form.resetForm();
+    this.route.navigate(['certificados', this.certificado.id]);
+
+    //Não mais necessário pois iremos redirecionar para tela do certificado
+    // this.certificado = this.resetFormulario();
+    // this.form.resetForm();
   }
 
   dataAtual() {
