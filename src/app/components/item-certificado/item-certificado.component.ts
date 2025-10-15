@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SecondaryButtonComponent } from "../secondary-button/secondary-button.component";
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-item-certificado',
   imports: [
-    SecondaryButtonComponent
+    SecondaryButtonComponent,
+    CommonModule
   ],
   templateUrl: './item-certificado.component.html',
   styleUrl: './item-certificado.component.css'
 })
 export class ItemCertificadoComponent {
-  id: string = '6';
+  @Input() nomeAluno: string = '';
+  @Input() dataEmissao: string = '';
+  @Input() id: string = '';
 
   constructor(private router: Router) {}
 
