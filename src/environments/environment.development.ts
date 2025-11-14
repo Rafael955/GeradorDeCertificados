@@ -1,4 +1,4 @@
-const certificadosApiUrl = 'http://localhost:5279';
+const certificadosApiUrl = 'http://localhost:5279/api';
 
 export const config = {
     production: false,

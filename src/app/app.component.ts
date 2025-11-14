@@ -1,17 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "./components/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
-import { BaseUiComponent } from "./components/base-ui/base-ui.component";
 import { CertificadoService } from './services/certificado.service';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    CommonModule,
-    NavbarComponent,
-    BaseUiComponent,
+    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

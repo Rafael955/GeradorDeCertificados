@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PrimaryButtonComponent } from "../primary-button/primary-button.component";
-import { RouterLink } from '@angular/router';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { config } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-usuario-card',
@@ -9,19 +12,51 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
     PrimaryButtonComponent,
     RouterLink,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
 ],
   templateUrl: './login-usuario-card.component.html',
   styleUrl: './login-usuario-card.component.css'
 })
 export class LoginUsuarioCardComponent {
 
+  mensagem_erro: string = "";
+
+  httpClient = inject(HttpClient);
+  router = inject(Router);
+
   form = new FormGroup({
-    email: new FormControl('', []),
-    senha: new FormControl('', []),
+    email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
+    senha: new FormControl('', [Validators.required, Validators.maxLength(20)]),
   })
 
   onSubmit() {
-    console.log("Teste Submit");
+    this.LimparMensagens();
+    
+    console.log(this.form.value);
+    console.log(`${config.certificadosApi_usuarios}/login`);
+
+    this.httpClient.post(`${config.certificadosApi_usuarios}/login`, this.form.value)
+    .subscribe({
+      next: (data) => {
+        console.log(data);
+        var dados = data as any;
+        localStorage.setItem('token', dados.token as string);
+        this.router.navigate(['']);
+      },
+      error: (error) => {
+        console.log(error);
+        this.mensagem_erro = error.message as string;
+      }
+    });
   }
+
+   LimparMensagens() {
+    this.mensagem_erro = '';
+  }
+
+  onFocus() {
+    this.LimparMensagens();
+  }
+  
 }
