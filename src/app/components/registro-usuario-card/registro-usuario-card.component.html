@@ -1,0 +1,30 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow" style="width: 24rem;">
+    <div class="card-body">
+      <img src="navbar/logo.svg" alt="logo" class="d-block mx-auto mb-3">
+      <h4 class="card-title text-center mb-4">Cadastro de Usuário</h4>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+        <div class="mb-3">
+          <label for="nomeusuario" class="form-label">Username</label>
+          <input type="nomeusuario" class="form-control" id="nomeusuario" placeholder="Digite seu username" required>
+        </div>
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+        </div>
+        <div class="mb-3">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="senha" placeholder="Digite sua Senha" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirmaSenha" class="form-label">Confirmar Senha</label>
+          <input type="confirmaSenha" class="form-control" id="confirmaSenha" placeholder="Confirme a senha" required>
+        </div>
+        <app-primary-button textoBotao="Realizar Cadastro" class="submit"></app-primary-button>
+      </form>
+      <div class="mt-3 text-center">
+        Já possui uma conta? Faça o <a routerLink="/login-usuario" class="link-primary">login</a> aqui!
+      </div>
+    </div>
+  </div>
+</div>

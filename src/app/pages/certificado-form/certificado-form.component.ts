@@ -7,6 +7,8 @@ import { Certificado } from '../../interfaces/certificado';
 import { CertificadoService } from '../../services/certificado.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 
 @Component({
   selector: 'app-certificado-form',
@@ -14,7 +16,9 @@ import { Router } from '@angular/router';
     SecondaryButtonComponent,
     PrimaryButtonComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    NavbarComponent,
+    BaseUiComponent
 ],
   templateUrl: './certificado-form.component.html',
   styleUrl: './certificado-form.component.css'

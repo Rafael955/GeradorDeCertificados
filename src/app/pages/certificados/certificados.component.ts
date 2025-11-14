@@ -4,6 +4,8 @@ import { SecondaryButtonComponent } from "../../components/secondary-button/seco
 import { RouterLink } from '@angular/router';
 import { Certificado } from '../../interfaces/certificado';
 import { CertificadoService } from '../../services/certificado.service';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 
 
 @Component({
@@ -11,7 +13,9 @@ import { CertificadoService } from '../../services/certificado.service';
   imports: [
     ItemCertificadoComponent,
     SecondaryButtonComponent,
-    RouterLink
+    RouterLink,
+    NavbarComponent,
+    BaseUiComponent
 ],
   templateUrl: './certificados.component.html',
   styleUrl: './certificados.component.css'

@@ -1,0 +1,23 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow" style="width: 24rem;">
+    <div class="card-body">
+      <img src="navbar/logo.svg" alt="logo" class="d-block mx-auto mb-3">
+      <h4 class="card-title text-center mb-4">Login do Usuário</h4>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+        </div>
+        <div class="mb-3">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="senha" placeholder="Digite sua Senha" required>
+        </div>
+        <!-- <button type="submit" class="btn btn-primary w-100">Entrar</button> -->
+        <app-primary-button textoBotao="Entrar" class="submit"></app-primary-button>
+      </form>
+      <div class="mt-3 text-center">
+        Não possui uma conta? Crie sua <a routerLink="/criar-usuario" class="link-primary">conta</a>!
+      </div>
+    </div>
+  </div>
+</div>

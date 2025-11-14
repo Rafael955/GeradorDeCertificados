@@ -4,10 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CertificadoService } from '../../services/certificado.service';
 import { Certificado } from '../../interfaces/certificado';
 import html2canvas from 'html2canvas';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 
 @Component({
   selector: 'app-certificado',
-  imports: [SecondaryButtonComponent, RouterLink],
+  imports: [SecondaryButtonComponent, RouterLink, NavbarComponent, BaseUiComponent],
   templateUrl: './certificado.component.html',
   styleUrl: './certificado.component.css'
 })
