@@ -33,19 +33,14 @@ export class LoginUsuarioCardComponent {
   onSubmit() {
     this.LimparMensagens();
     
-    console.log(this.form.value);
-    console.log(`${config.certificadosApi_usuarios}/login`);
-
     this.httpClient.post(`${config.certificadosApi_usuarios}/login`, this.form.value)
     .subscribe({
-      next: (data) => {
+      next: (data: any) => {
         console.log(data);
-        var dados = data as any;
-        localStorage.setItem('token', dados.token as string);
+        sessionStorage.setItem('dadosUsuario', JSON.stringify(data));
         this.router.navigate(['']);
       },
       error: (error) => {
-        console.log(error);
         this.mensagem_erro = error.message as string;
       }
     });
