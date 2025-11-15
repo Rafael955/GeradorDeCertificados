@@ -5,6 +5,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { config } from '../../../environments/environment';
+import { UsuarioService } from '../../services/usuario.service';
+import { IAutenticarUsuarioResponse } from '../../interfaces/usuarios/autenticar-usuario-response';
+import { IAutenticarUsuarioRequest } from '../../interfaces/usuarios/autenticar-usuario-request';
 
 @Component({
   selector: 'app-login-usuario-card',
@@ -22,8 +25,9 @@ export class LoginUsuarioCardComponent {
 
   mensagem_erro: string = "";
 
-  httpClient = inject(HttpClient);
   router = inject(Router);
+
+  private readonly usuarioService = inject(UsuarioService);
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
@@ -33,16 +37,20 @@ export class LoginUsuarioCardComponent {
   onSubmit() {
     this.LimparMensagens();
     
-    this.httpClient.post(`${config.certificadosApi_usuarios}/login`, this.form.value)
-    .subscribe({
-      next: (data: any) => {
-        console.log(data);
-        sessionStorage.setItem('dadosUsuario', JSON.stringify(data));
-        this.router.navigate(['']);
-      },
-      error: (error) => {
-        this.mensagem_erro = error.message as string;
-      }
+    const usuarioLogin: IAutenticarUsuarioRequest = {
+      email: this.form.value.email as string,
+      senha: this.form.value.senha as string
+    }
+
+    this.usuarioService.autenticarUsuario(usuarioLogin)
+      .subscribe({
+        next: (data: IAutenticarUsuarioResponse) => {
+          sessionStorage.setItem('dadosUsuario', JSON.stringify(data));
+          this.router.navigate(['/certificados']);
+        },
+        error: (error) => {
+          this.mensagem_erro = error.message as string;
+        }
     });
   }
 

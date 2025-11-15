@@ -3,8 +3,7 @@ import { config } from '../../environments/environment';
 
 const allowedUrls: string[] = [
   config.certificadosApi_atividades,
-  config.certificadosApi_certificados,
-  config.certificadosApi_usuarios
+  config.certificadosApi_certificados
 ]
 
 export const TokenInterceptor: HttpInterceptorFn = (request, next) => {

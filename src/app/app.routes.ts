@@ -7,7 +7,7 @@ import { CriarUsuarioComponent } from './pages/criar-usuario/criar-usuario.compo
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'certificados',
         component: CertificadosComponent
     },
     {
@@ -25,5 +25,10 @@ export const routes: Routes = [
     {
         path: 'criar-usuario',
         component: CriarUsuarioComponent
+    },
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'login-usuario'
     }
 ];

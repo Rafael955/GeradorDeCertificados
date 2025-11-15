@@ -34,6 +34,9 @@ export class NavbarComponent {
     this.email = usuario.email;
     this.perfil = usuario.perfil;
     this.dataHoraAcesso = new Date(usuario.dataHoraAcesso);
+
+    console.log(usuario.dataHoraAcesso);
+    console.log(this.dataHoraAcesso);
   }
 
    logout() {
