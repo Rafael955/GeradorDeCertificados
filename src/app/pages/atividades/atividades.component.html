@@ -1,0 +1,29 @@
+<app-navbar/>
+<app-base-ui>
+    <div class="d-flex flex-column align-items-center">
+        <div class="content-titles">
+            <h1 class="fw-bold custom-title">Atividades cadastradas</h1>
+            <p class="mb-4 custom-subtitle">Visualize todas as atividades cadastradas</p>
+        </div>
+        
+        @if(atividades.length > 0){
+            <div class="list-certificates w-100">
+                @for (certificado of atividades; track $index) {
+
+                }
+            </div>
+        }
+        @else {
+            
+            <div class="custom-card w-100">
+                <i class="ph ph-certificate"></i>
+                <div class="custom-warning-titles">
+                    <h3 class="card-title">Nenhuma atividade cadastrada</h3>
+                    <p class="card-subtitle">Cadastre atividades para inclusão em novos certificados</p>
+                </div>
+                <app-secondary-button routerLink="/atividade/nova-atividade" textoBotao="Cadastrar atividade"></app-secondary-button>
+            </div>
+        }
+        
+    </div>
+</app-base-ui>

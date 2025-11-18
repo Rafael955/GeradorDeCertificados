@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Pipe } from '@angular/core';
 import { SecondaryButtonComponent } from "../secondary-button/secondary-button.component";
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';

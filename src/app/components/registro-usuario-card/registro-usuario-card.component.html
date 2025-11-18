@@ -82,18 +82,18 @@
           <input type="password" formControlName="confirmaSenha" class="form-control" id="confirmaSenha" placeholder="Confirme a senha" onfocus="onFocus()" required>
           @if(form.get('confirmaSenha')?.touched && form.get('confirmaSenha')?.invalid) {
               <div class="text-danger d-flex align-items-center">
-                @if(form.get('senha')?.errors?.['required']) {
+                @if(form.get('confirmaSenha')?.errors?.['required']) {
                   <i class="ph ph-warning-octagon"></i>
                   <p class="mb-0"> Por favor, confirme a sua senha!</p>
                 }
-                @else if(form.get('confirmarSenha')?.errors?.['matchPassword']){
+                @if(form.get('confirmaSenha')?.errors?.['matchPassword']){
                     <i class="ph ph-warning-octagon"></i>
                     <p class="mb-0"> As senhas não conferem, por favor verifique!</p>
                 }
               </div>
           }
         </div>
-        <app-primary-button textoBotao="Realizar Cadastro" class="submit"></app-primary-button>
+        <app-primary-button textoBotao="Realizar Cadastro" class="submit" [disabled]="form.invalid"></app-primary-button>
       </form>
       <div class="mt-3 text-center">
         Já possui uma conta? Faça o <a routerLink="/login-usuario" class="link-primary">login</a> aqui!

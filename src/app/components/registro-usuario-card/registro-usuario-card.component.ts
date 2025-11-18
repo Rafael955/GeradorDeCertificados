@@ -67,8 +67,15 @@ export class RegistroUsuarioCardComponent {
           this.mensagem_sucesso = `Usuário ${data.nomeUsuario} cadastrado com sucesso!`;
           this.form.reset();
         },
-        error: (error) => {
-          this.mensagem_erro = error.message as string;
+         error: (err: any) => {
+          console.log(err.error.errorMessages);
+
+          if(err.error.errorMessages.length > 1){
+              this.mensagem_erro = (err.error.errorMessages as string[]).map(item => item).join('\n ') as string;
+            }
+          else {
+            this.mensagem_erro = err.error.errorMessages[0] as string;
+          }
         }
       });
   }

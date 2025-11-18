@@ -1,14 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { PrimaryButtonComponent } from "../../components/primary-button/primary-button.component";
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Certificado } from '../../interfaces/certificado';
+import { Certificado } from '../../interfaces/certificados/certificado';
 import { CertificadoService } from '../../services/certificado.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
+import { ICertificadoRequest } from '../../interfaces/certificados/certificado-request';
+import { take } from 'rxjs';
+import { ICertificadoResponse } from '../../interfaces/certificados/certificado-response';
 
 @Component({
   selector: 'app-certificado-form',
@@ -30,11 +33,10 @@ export class CertificadoFormComponent {
     private certificadoService: CertificadoService,
     private route: Router) {}
 
-  certificado: Certificado = {
-    id: "",
+  certificado: ICertificadoRequest = {
     nome: "",
     atividades: [],
-    dataEmissao: ""
+    usuarioId: "",
   }
 
   atividade: string = "";
@@ -59,15 +61,35 @@ export class CertificadoFormComponent {
     this.certificado.atividades.splice(index, 1);
   }
 
-  submit(){
+  onSubmit(){
     if(this.formValido() == false) return;
 
-    this.certificado.dataEmissao = this.dataAtual();
-    this.certificado.id = uuidv4();
+    // this.certificado.dataEmissao = this.dataAtual();
+    
+    //this.certificadoService.adicionarCertificado(this.certificado);
+    const data = sessionStorage.getItem('dadosUsuario');
+    const usuario = JSON.parse(data as string);
 
-    this.certificadoService.adicionarCertificado(this.certificado);
+    this.certificado.usuarioId = usuario.id as string;
 
-    this.route.navigate(['certificados', this.certificado.id]);
+    const certificadoNovo: ICertificadoRequest = {
+      nome: this.certificado.nome,
+      atividades: this.certificado.atividades,
+      usuarioId: this.certificado.usuarioId
+    }
+      
+    this.certificadoService.criarCertificado(certificadoNovo)
+      .pipe(take(1))
+        .subscribe({
+          next: (response: ICertificadoResponse) => {
+            this.route.navigate(['certificados', response.id]);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+
+    //this.route.navigate(['certificados', this.certificado.id]);
 
     //Não mais necessário pois iremos redirecionar para tela do certificado
     // this.certificado = this.resetFormulario();

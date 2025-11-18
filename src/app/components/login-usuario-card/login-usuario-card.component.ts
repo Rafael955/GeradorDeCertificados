@@ -2,9 +2,7 @@ import { Component, inject } from '@angular/core';
 import { PrimaryButtonComponent } from "../primary-button/primary-button.component";
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { config } from '../../../environments/environment';
 import { UsuarioService } from '../../services/usuario.service';
 import { IAutenticarUsuarioResponse } from '../../interfaces/usuarios/autenticar-usuario-response';
 import { IAutenticarUsuarioRequest } from '../../interfaces/usuarios/autenticar-usuario-request';
@@ -48,8 +46,16 @@ export class LoginUsuarioCardComponent {
           sessionStorage.setItem('dadosUsuario', JSON.stringify(data));
           this.router.navigate(['/certificados']);
         },
-        error: (error) => {
-          this.mensagem_erro = error.message as string;
+        error: (err: any) => {
+          console.log(err.error.errorMessages);
+
+          if(err.error.errorMessages.length > 1){
+              this.mensagem_erro = (err.error.errorMessages as string[]).map(item => item).join('\n ') as string;
+          }
+          else {
+            this.mensagem_erro = err.error.errorMessages[0] as string;
+          }
+
         }
     });
   }

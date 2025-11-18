@@ -2,21 +2,30 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CertificadoService } from '../../services/certificado.service';
-import { Certificado } from '../../interfaces/certificado';
+import { Certificado } from '../../interfaces/certificados/certificado';
 import html2canvas from 'html2canvas';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
+import { ICertificadoResponse } from '../../interfaces/certificados/certificado-response';
+import { take } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-certificado',
-  imports: [SecondaryButtonComponent, RouterLink, NavbarComponent, BaseUiComponent],
+  imports: [
+    SecondaryButtonComponent, 
+    RouterLink, 
+    NavbarComponent, 
+    BaseUiComponent, 
+    CommonModule],
   templateUrl: './certificado.component.html',
   styleUrl: './certificado.component.css'
 })
 export class CertificadoComponent implements OnInit {
 
   id: string | null = null;
-  certificado: Certificado | undefined;
+  certificado: ICertificadoResponse | undefined;
+  atividades: string = '';
 
   @ViewChild('certificadoContainer') certificadoElement!: ElementRef;
 
@@ -28,8 +37,20 @@ export class CertificadoComponent implements OnInit {
     // this.id = this.route.snapshot.paramMap.get('id') as string;
     //Outra forma:
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('id');
-      this.certificado = this.certificadoService.certificados.find(item => item.id == this.id);
+    this.id = params.get('id') as string;
+    //this.certificado = this.certificadoService.certificados.find(item => item.id == this.id);
+    this.certificadoService.obterCertificado(this.id)
+      .pipe(take(1))
+        .subscribe({
+          next: (response: ICertificadoResponse) => {
+            console.log(response);
+            this.certificado = response;
+            this.atividades = this.certificado?.atividades.map(item => item.nome).join(', ') as string;
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
     });
   }
 

@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<app-base-ui>
+    <form #form="ngForm" novalidate class="d-flex flex-column align-items-center">
+        <div class="mb-3">
+            <h1 class="fw-bold custom-title">Cadastro de nova atividade</h1>
+        </div>
+        @if(mensagem_sucesso){
+            <div class="alert alert-success mb-2 alert-dismissible" style="white-space: pre-wrap;">
+                <strong>Sucesso!</strong><br/>  
+                {{ mensagem_sucesso  }}
+                <button (click)="mensagem_sucesso = ''" type="button" class="btn-close"
+                aria-label="Close"></button>
+            </div>
+        }
+        @if(mensagem_erro){
+            <div class="alert alert-danger mb-2 alert-dismissible" style="white-space: pre-wrap;">
+                <strong>Erro!</strong><br/>  
+                {{mensagem_erro}}
+                <button (click)="mensagem_erro = ''" type="button" class="btn-close"
+                aria-label="Close"></button>
+            </div>
+        }
+        <div class="custom-card w-100">
+            <h2 class="card-title">Nova atividade</h2>
+            <div class="mb-3 custom-input-group">
+                <label [ngClass]="{'text-danger-label' : campoInvalido(nomeRef)}" for="nome" class="form-label">Nome da Atividade</label>
+                <input [(ngModel)]="this.atividade.nome" name="nome" #nomeRef="ngModel" appMaxLength="150" minlength="2" required id="nome" type="text" class="form-control custom-input" placeholder="Nome do atividade">
+               @if(campoInvalido(nomeRef)){
+                    @let errorMessage = getMensagemErroNome(nomeRef);
+
+                    @if(errorMessage) {
+                        <div class="error-message d-flex align-items-center">
+                            <i class="ph ph-warning-circle"></i>
+                            <p class="mb-0">{{ errorMessage }}</p>
+                        </div>
+                    }
+                }
+            </div>
+            <app-primary-button (click)="onSubmit()" [disabled]="!formValido(form)" textoBotao="Cadastrar atividade"></app-primary-button>
+        </div>
+    </form>
+</app-base-ui>

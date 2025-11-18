@@ -11,8 +11,18 @@
                 </li>
                 <li class="nav-item d-flex align-items-center ms-3">
                     <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaGerarCertificado.isActive }"></i>
-                    <a class="nav-link p-0" #rlaGerarCertificado="routerLinkActive" routerLink="/certificados/novo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gerar certificado</a>
+                    <a class="nav-link p-0" #rlaGerarCertificado="routerLinkActive" routerLink="/certificados/novo-certificado" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gerar certificado</a>
                 </li>
+                @if(isAdmin){
+                  <li class="nav-item d-flex align-items-center">
+                    <i class="ph ph-note-pencil" [ngClass]="{ 'active': rlaListaAtividades.isActive }"></i>
+                    <a class="nav-link p-0" #rlaListaAtividades="routerLinkActive" routerLink="/atividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de atividades</a>
+                  </li>
+                  <li class="nav-item d-flex align-items-center ms-3">
+                    <i class="ph ph-users-four" [ngClass]="{ 'active': rlaListaUsuarios.isActive }"></i>
+                    <a class="nav-link p-0" #rlaListaUsuarios="routerLinkActive" routerLink="/usuarios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de usuários</a>
+                </li>
+                }
             </ul>
         </div>
         <div class="collapse navbar-collapse justify-content-end">

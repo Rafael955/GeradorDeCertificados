@@ -23,6 +23,7 @@ export class NavbarComponent {
   email: any = "";
   perfil: any = "";
   dataHoraAcesso: any = "";
+  isAdmin: boolean = false;
 
   ngOnInit() {
     const data = sessionStorage.getItem('dadosUsuario');
@@ -34,6 +35,9 @@ export class NavbarComponent {
     this.email = usuario.email;
     this.perfil = usuario.perfil;
     this.dataHoraAcesso = new Date(usuario.dataHoraAcesso);
+
+    if(this.perfil == 'Administrador') 
+      this.isAdmin = true;
 
     console.log(usuario.dataHoraAcesso);
     console.log(this.dataHoraAcesso);
