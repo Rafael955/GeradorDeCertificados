@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+<app-base-ui>
+    <form #form="ngForm" novalidate class="d-flex flex-column align-items-center">
+        <div class="d-flex justify-content-start align-items-center edicao-atividade-form w-100">
+            <div routerLink="/atividades" class="nav-item d-flex align-items-center btn-voltar align-self-start">
+                <i class="ph ph-arrow-left"></i>
+                <p class="mb-0">Voltar</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <h1 class="fw-bold custom-title">Edição de atividade</h1>
+        </div>
+        @if(mensagem_sucesso){
+            <div class="alert alert-success mb-2 alert-dismissible edicao-atividade-form w-100" style="white-space: pre-wrap;">
+                <strong>Sucesso!</strong><br/>  
+                {{ mensagem_sucesso  }}
+                <button (click)="mensagem_sucesso = ''" type="button" class="btn-close"
+                aria-label="Close"></button>
+            </div>
+        }
+        @if(mensagem_erro){
+            <div class="alert alert-danger mb-2 alert-dismissible edicao-atividade-form w-100" style="white-space: pre-wrap;">
+                <strong>Erro!</strong><br/>  
+                {{mensagem_erro}}
+                <button (click)="mensagem_erro = ''" type="button" class="btn-close"
+                aria-label="Close"></button>
+            </div>
+        }
+        <div class="custom-card w-100">
+            <h2 class="card-title">Atividade</h2>
+            <div class="mb-3 custom-input-group">
+                <label [ngClass]="{'text-danger-label' : campoInvalido(nomeRef)}" for="nome" class="form-label">Nome da Atividade</label>
+                <input [(ngModel)]="this.atividade.nome" name="nome" #nomeRef="ngModel" appMaxLength="150" minlength="2" required id="nome" type="text" class="form-control custom-input" placeholder="Nome do atividade">
+               @if(campoInvalido(nomeRef)){
+                    @let errorMessage = getMensagemErroNome(nomeRef);
+
+                    @if(errorMessage) {
+                        <div class="error-message d-flex align-items-center">
+                            <i class="ph ph-warning-circle"></i>
+                            <p class="mb-0">{{ errorMessage }}</p>
+                        </div>
+                    }
+                }
+            </div>
+            <app-primary-button (click)="onSubmit()" [disabled]="!formValido(form)" textoBotao="Editar atividade"></app-primary-button>
+            <div class="mt-1">
+                <app-primary-button textoBotao="Excluir atividade" styleClass="danger-button" data-bs-toggle="modal" data-bs-target="#painel_confirma_exclusao"></app-primary-button>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade" id="painel_confirma_exclusao" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">
+            Aviso
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-2">
+            <strong>Deseja realmente excluir a atividade {{ nomeAnterior }}?</strong>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onDelete()">
+            Sim
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Não
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+</app-base-ui>

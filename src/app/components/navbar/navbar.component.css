@@ -35,3 +35,8 @@
 .bg-custom-color {
     background-color: #1A2856;
 }
+
+.dropdown-menu {
+    width: 250px !important;
+    padding-left: 10px;
+}

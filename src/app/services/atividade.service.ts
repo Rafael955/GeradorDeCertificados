@@ -14,5 +14,21 @@ export class AtividadeService {
 
   cadastrarAtividade(atividade: IAtividadeRequest) : Observable<IAtividadeResponse> {
       return this.httpClient.post<IAtividadeResponse>(`${config.certificadosApi_atividades}/cadastrar-atividade`, atividade);
-    }
+  }
+
+  alterarAtividade(atividade: IAtividadeRequest, idAtividade: string) : Observable<IAtividadeResponse> {
+      return this.httpClient.put<IAtividadeResponse>(`${config.certificadosApi_atividades}/alterar-atividade/${idAtividade}`, atividade);
+  }
+
+  excluirAtividade(idAtividade: string) : Observable<IAtividadeResponse> {
+      return this.httpClient.delete<IAtividadeResponse>(`${config.certificadosApi_atividades}/excluir-atividade/${idAtividade}`);
+  }
+
+  obterAtividadePorId(idAtividade: string): Observable<IAtividadeResponse> {
+    return this.httpClient.get<IAtividadeResponse>(`${config.certificadosApi_atividades}/obter-atividade/${idAtividade}`);
+  }
+
+  listarAtividades(): Observable<IAtividadeResponse[]> {
+    return this.httpClient.get<IAtividadeResponse[]>(`${config.certificadosApi_atividades}/listar-atividades`);
+  }
 }

@@ -6,6 +6,7 @@ import { LoginUsuarioComponent } from './pages/login-usuario/login-usuario.compo
 import { CriarUsuarioComponent } from './pages/criar-usuario/criar-usuario.component';
 import { AtividadesComponent } from './pages/atividades/atividades.component';
 import { AtividadeFormComponent } from './pages/atividade-form/atividade-form.component';
+import { AtividadeEdicaoFormComponent } from './pages/atividade-edicao-form/atividade-edicao-form.component';
 
 export const routes: Routes = [
     {
@@ -27,6 +28,10 @@ export const routes: Routes = [
     {
         path: 'atividade/nova-atividade',
         component: AtividadeFormComponent
+    },
+    {
+        path: 'atividade/edicao-atividade/:id',
+        component: AtividadeEdicaoFormComponent
     },
     {
         path: 'login-usuario',

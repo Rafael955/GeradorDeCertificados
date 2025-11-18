@@ -7,9 +7,9 @@
         </div>
         
         @if(atividades.length > 0){
-            <div class="list-certificates w-100">
-                @for (certificado of atividades; track $index) {
-
+            <div class="d-flex flex-wrap">
+            @for (atividade of atividades; track $index) {
+                    <app-item-atividade [nomeAtividade]="atividade.nome" [id]="atividade.id"></app-item-atividade>
                 }
             </div>
         }

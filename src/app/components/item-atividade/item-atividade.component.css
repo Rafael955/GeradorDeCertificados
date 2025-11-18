@@ -1,0 +1,9 @@
+.background-item {
+    background: linear-gradient(0deg, #eeeeee 0%, #ffffff 100%);
+    cursor: pointer;
+}
+
+.background-item:hover {
+    background: linear-gradient(0deg, #dddddd 0%, #eeeeee 100%);
+    color: #3B5AC2;
+}
