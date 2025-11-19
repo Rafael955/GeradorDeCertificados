@@ -1,17 +1,20 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { PrimaryButtonComponent } from "../../components/primary-button/primary-button.component";
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
-import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Certificado } from '../../interfaces/certificados/certificado';
 import { CertificadoService } from '../../services/certificado.service';
-import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 import { ICertificadoRequest } from '../../interfaces/certificados/certificado-request';
 import { take } from 'rxjs';
 import { ICertificadoResponse } from '../../interfaces/certificados/certificado-response';
+import { MatAutocomplete, MatOption, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { AtividadeService } from '../../services/atividade.service';
+import { IAtividadeResponse } from '../../interfaces/atividades/atividade-response';
+import { IAtividadeRequest } from '../../interfaces/atividades/atividade-request';
 
 @Component({
   selector: 'app-certificado-form',
@@ -21,7 +24,11 @@ import { ICertificadoResponse } from '../../interfaces/certificados/certificado-
     FormsModule,
     CommonModule,
     NavbarComponent,
-    BaseUiComponent
+    BaseUiComponent,
+    MatAutocomplete,
+    MatOption,
+    MatAutocompleteTrigger,
+    ReactiveFormsModule
 ],
   templateUrl: './certificado-form.component.html',
   styleUrl: './certificado-form.component.css'
@@ -29,17 +36,34 @@ import { ICertificadoResponse } from '../../interfaces/certificados/certificado-
 export class CertificadoFormComponent {
   @ViewChild('form') form! : NgForm
 
+  atividades: IAtividadeResponse[] = [];
+  atividadesFiltradas: IAtividadeResponse[] = []; 
+  atividade: string = "";
+
+  private readonly atividadeService = inject(AtividadeService);
+
   constructor(
     private certificadoService: CertificadoService,
     private route: Router) {}
+
+  ngOnInit(): void {
+    this.atividadeService.listarAtividades()
+      .subscribe({
+        next:(response: IAtividadeResponse[]) => {
+          this.atividades = response;
+          this.atividadesFiltradas = response;
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })
+  }
 
   certificado: ICertificadoRequest = {
     nome: "",
     atividades: [],
     usuarioId: "",
   }
-
-  atividade: string = "";
 
   campoInvalido(control: NgModel){
     return control.invalid && control.touched;
@@ -53,7 +77,11 @@ export class CertificadoFormComponent {
     if(this.atividade.length == 0) 
       return;
 
-    this.certificado.atividades.push(this.atividade);
+    const atividadeAdicionada: IAtividadeRequest = {
+      nome: this.atividade
+    }
+
+    this.certificado.atividades.push(atividadeAdicionada);
     this.atividade = "";
   }
 
@@ -64,9 +92,6 @@ export class CertificadoFormComponent {
   onSubmit(){
     if(this.formValido() == false) return;
 
-    // this.certificado.dataEmissao = this.dataAtual();
-    
-    //this.certificadoService.adicionarCertificado(this.certificado);
     const data = sessionStorage.getItem('dadosUsuario');
     const usuario = JSON.parse(data as string);
 
@@ -77,7 +102,7 @@ export class CertificadoFormComponent {
       atividades: this.certificado.atividades,
       usuarioId: this.certificado.usuarioId
     }
-      
+    
     this.certificadoService.criarCertificado(certificadoNovo)
       .pipe(take(1))
         .subscribe({
@@ -88,12 +113,6 @@ export class CertificadoFormComponent {
             console.log(error);
           }
         });
-
-    //this.route.navigate(['certificados', this.certificado.id]);
-
-    //Não mais necessário pois iremos redirecionar para tela do certificado
-    // this.certificado = this.resetFormulario();
-    // this.form.resetForm();
   }
 
   dataAtual() {
@@ -113,5 +132,20 @@ export class CertificadoFormComponent {
       atividades: [],
       dataEmissao: ""
     }
+  }
+
+  private _filter(value: string): IAtividadeResponse[] {
+    if (!value) return this.atividades; // Se o valor for vazio, retorna todas
+
+    const filterValue = value.toLowerCase();
+
+    return this.atividades.filter(atividade => 
+      atividade.nome.toLowerCase().includes(filterValue)
+    );
+  }
+
+  // Novo método para ser chamado quando o input muda
+  onAtividadeChange(value: string) {
+    this.atividadesFiltradas = this._filter(value);
   }
 }

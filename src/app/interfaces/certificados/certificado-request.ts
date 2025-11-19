@@ -1,5 +1,7 @@
+import { IAtividadeRequest } from "../atividades/atividade-request";
+
 export interface ICertificadoRequest {
     nome: string;
-    atividades: string[];
+    atividades: IAtividadeRequest[];
     usuarioId: string;
 }

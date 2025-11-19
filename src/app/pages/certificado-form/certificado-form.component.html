@@ -21,7 +21,12 @@
             <div class="mb-3 d-flex align-items-end custom-input-group">
                 <div class="flex-grow-1 me-2">
                     <label for="atividade" class="form-label">Atividade</label>
-                    <input [(ngModel)]="atividade" name="atividade" #atividadeRef="ngModel" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        @for (atividade of atividadesFiltradas; track atividade.id) {
+                            <mat-option [value]="atividade.nome">{{atividade.nome}}</mat-option>
+                        }
+                    </mat-autocomplete>
+                    <input [(ngModel)]="atividade" (ngModelChange)="onAtividadeChange($event)" name="atividade" #atividadeRef="ngModel" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida" matInput [matAutocomplete]="auto">
                 </div>
                 <app-secondary-button (click)="adicionarAtividade()" [disabled]="!atividade || atividade.length == 0" textoBotao="Adicionar" phClass="ph ph-plus"></app-secondary-button>
             </div>
@@ -30,7 +35,7 @@
                 <div class="item-list w-100"> 
                     @for (atividade of this.certificado.atividades; track $index) {
                         <div class="item">
-                            <span class="item-text">{{ atividade }}</span>
+                            <span class="item-text">{{ atividade.nome }}</span>
                             <div (click)="excluirAtividade($index)" class="remove-btn">
                                 <i class="ph-bold ph-x"></i>
                             </div>
