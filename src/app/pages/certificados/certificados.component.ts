@@ -2,11 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ItemCertificadoComponent } from "../../components/item-certificado/item-certificado.component";
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
 import { RouterLink } from '@angular/router';
-import { Certificado } from '../../interfaces/certificados/certificado';
 import { CertificadoService } from '../../services/certificado.service';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 import { take } from 'rxjs';
+import { ICertificadoResponse } from '../../interfaces/certificados/certificado-response';
 
 
 @Component({
@@ -23,7 +23,7 @@ import { take } from 'rxjs';
 })
 export class CertificadosComponent implements OnInit {
 
-  certificados: Certificado[] = [];
+  certificados: ICertificadoResponse[] = [];
 
   certificadosService = inject(CertificadoService);
 
@@ -33,8 +33,15 @@ export class CertificadosComponent implements OnInit {
     this.certificadosService.listarCertificados()
       .pipe(take(1))
         .subscribe({
-          next: (response: any) => {
-            this.certificados = response;
+          next: (response: ICertificadoResponse[]) => {
+                this.certificados = response.sort((a, b) => {
+              // Cria um objeto Date de JavaScript a partir da string dataEmissao
+                const dataB = new Date(b.dataEmissao).getTime();
+                const dataA = new Date(a.dataEmissao).getTime();
+                
+                // Ordenação Decrescente (Mais Recente Primeiro)
+                return dataB - dataA;
+              });
           },
           error: (error) => {
              console.log(error);

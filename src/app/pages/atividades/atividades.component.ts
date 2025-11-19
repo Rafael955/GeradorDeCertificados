@@ -5,7 +5,8 @@ import { SecondaryButtonComponent } from "../../components/secondary-button/seco
 import { RouterLink } from '@angular/router';
 import { ItemAtividadeComponent } from "../../components/item-atividade/item-atividade.component";
 import { AtividadeService } from '../../services/atividade.service';
-import { take } from 'rxjs';
+import { IAtividadeResponse } from '../../interfaces/atividades/atividade-response';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-atividades',
@@ -14,20 +15,47 @@ import { take } from 'rxjs';
     BaseUiComponent,
     SecondaryButtonComponent,
     RouterLink,
-    ItemAtividadeComponent
+    ItemAtividadeComponent,
+    FormsModule
 ],
   templateUrl: './atividades.component.html',
   styleUrl: './atividades.component.css'
 })
 export class AtividadesComponent {
-
   private readonly atividadeService = inject(AtividadeService);
 
-  atividades: any[] = [];
+  atividades: IAtividadeResponse[] = [];
+  atividadesFiltradas: IAtividadeResponse[] = []; // NOVO ARRAY
+  atividade: string = "";
 
   ngOnInit(): void {
     this.atividadeService.listarAtividades()
-      .pipe(take(1))
-      .subscribe((atividades) => this.atividades = atividades);
+      .subscribe({
+        next:(response: IAtividadeResponse[]) => {
+          this.atividades = response.sort((a, b) => {
+            return a.nome.localeCompare(b.nome);
+          });
+          this.atividadesFiltradas = this.atividades;
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })
+ }
+
+  onAtividadeChange(value: string) {
+    this.atividadesFiltradas = this._filter(value);
+  }
+
+  // Método privado para fazer a lógica de filtragem
+  private _filter(value: string): IAtividadeResponse[] {
+      if (!value) return this.atividades; // Se o valor for vazio, retorna todas
+
+      const filterValue = value.toLowerCase();
+
+      return this.atividades.filter(atividade => 
+        atividade.nome.toLowerCase().includes(filterValue)
+      );
   }
 }
+

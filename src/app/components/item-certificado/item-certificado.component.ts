@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ItemCertificadoComponent {
   @Input() nomeAluno: string = '';
-  @Input() dataEmissao: string = '';
+  @Input() dataEmissao: Date = new Date();
   @Input() id: string = '';
 
   constructor(private router: Router) {}

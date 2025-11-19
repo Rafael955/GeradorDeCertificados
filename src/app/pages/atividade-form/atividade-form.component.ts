@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { PrimaryButtonComponent } from "../../components/primary-button/primary-button.component";
 import { take } from 'rxjs';
 import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-atividade-form',
@@ -17,7 +18,8 @@ import { MaxLengthDirective } from '../../directives/max-length.directive';
     FormsModule,
     CommonModule,
     PrimaryButtonComponent,
-    MaxLengthDirective
+    MaxLengthDirective,
+    RouterLink
 ],
   templateUrl: './atividade-form.component.html',
   styleUrl: './atividade-form.component.css'

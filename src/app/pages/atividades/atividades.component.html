@@ -5,13 +5,16 @@
             <h1 class="fw-bold custom-title">Atividades cadastradas</h1>
             <p class="mb-4 custom-subtitle">Visualize todas as atividades cadastradas</p>
         </div>
-        
         @if(atividades.length > 0){
-            <div class="d-flex flex-wrap">
-            @for (atividade of atividades; track $index) {
-                    <app-item-atividade [nomeAtividade]="atividade.nome" [id]="atividade.id"></app-item-atividade>
+         <div class="flex-grow-1 me-2 mb-3">
+            <label for="atividade" class="form-label">Pesquisa de atividade</label>
+            <input [(ngModel)]="atividade" (ngModelChange)="onAtividadeChange($event)" name="atividade" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida">
+        </div>
+        <div class="d-flex flex-wrap">
+            @for (atividade of atividadesFiltradas; track $index) {
+                    <app-item-atividade class="flex-fill" [nomeAtividade]="atividade.nome" [id]="atividade.id"></app-item-atividade>
                 }
-            </div>
+        </div>
         }
         @else {
             
