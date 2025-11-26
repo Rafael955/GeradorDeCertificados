@@ -3,7 +3,7 @@
     <div class="card-body">
       <img src="navbar/logo.svg" alt="logo" class="d-block mx-auto mb-3">
       <h4 class="card-title text-center mb-4">Cadastro de Usuário</h4>
-        
+
       @if(mensagem_erro) {
         <div class="text-danger text-center">
           <strong>{{mensagem_erro}}</strong>
@@ -23,8 +23,10 @@
           @if(form.get('nomeUsuario')?.touched && form.get('nomeUsuario')?.invalid) {
             <div class="text-danger d-flex align-items-center">
               @if(form.get('nomeUsuario')?.errors?.['required']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> O username do usuário deve ser informado.</p>
+                <small>
+                  <i class="ph ph-warning-octagon"></i>
+                  <p class="mb-0"> O username do usuário deve ser informado.</p>
+                </small>
               }
               @else if(form.get('nomeusuario')?.errors?.['maxlength']) {
                 <i class="ph ph-warning-octagon"></i>
@@ -39,7 +41,7 @@
         </div>
           <label for="email" class="form-label">Email</label>
           <input type="email" formControlName="email" class="form-control" id="email" placeholder="Digite seu email" onfocus="onFocus()" required>
-           @if(form.get('email')?.touched && form.get('email')?.invalid) 
+           @if(form.get('email')?.touched && form.get('email')?.invalid)
            {
              <div class="text-danger d-flex align-items-center">
                @if(form.get('email')?.errors?.['required']) {

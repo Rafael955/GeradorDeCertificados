@@ -7,6 +7,7 @@ import { ItemAtividadeComponent } from "../../components/item-atividade/item-ati
 import { AtividadeService } from '../../services/atividade.service';
 import { IAtividadeResponse } from '../../interfaces/atividades/atividade-response';
 import { FormsModule } from '@angular/forms';
+import { normalizeString } from '../../shared/utils/string-utils';
 
 @Component({
   selector: 'app-atividades',
@@ -32,10 +33,10 @@ export class AtividadesComponent {
     this.atividadeService.listarAtividades()
       .subscribe({
         next:(response: IAtividadeResponse[]) => {
-          this.atividades = response.sort((a, b) => {
-            return a.nome.localeCompare(b.nome);
-          });
-          this.atividadesFiltradas = this.atividades;
+            this.atividades = response.sort((a, b) => {
+             return a.nome.localeCompare(b.nome);
+            });
+            this.atividadesFiltradas = this.atividades;
         },
         error: (err: any) => {
           console.log(err);
@@ -48,14 +49,11 @@ export class AtividadesComponent {
   }
 
   // Método privado para fazer a lógica de filtragem
-  private _filter(value: string): IAtividadeResponse[] {
-      if (!value) return this.atividades; // Se o valor for vazio, retorna todas
+ private _filter(value: string): IAtividadeResponse[] {
+  if (!value) return this.atividades;
 
-      const filterValue = value.toLowerCase();
+  const filterValue = normalizeString(value);
 
-      return this.atividades.filter(atividade => 
-        atividade.nome.toLowerCase().includes(filterValue)
-      );
-  }
+  return this.atividades.filter(atividade => normalizeString(atividade.nome).startsWith(filterValue));
+ }
 }
-

@@ -16,7 +16,7 @@ export class CertificadoService {
   //certificados: Certificado[] = [];
 
   // adicionarCertificado(certificado: Certificado) {
-  //   this.certificados.unshift({...certificado}); 
+  //   this.certificados.unshift({...certificado});
   //   localStorage.setItem('certificados', JSON.stringify(this.certificados));
   // }
 
@@ -28,7 +28,10 @@ export class CertificadoService {
     return this.httpClient.get<ICertificadoResponse>(`${config.certificadosApi_certificados}/obter-certificado/${idCertificado}`);
   }
 
-  listarCertificados() : Observable<ICertificadoResponse[]> {
-    return this.httpClient.get<ICertificadoResponse[]>(`${config.certificadosApi_certificados}/listar-certificados`);
+  listarCertificados(usuarioData: any) : Observable<ICertificadoResponse[]> {
+    if(usuarioData.perfil == 'Administrador')
+      return this.httpClient.get<ICertificadoResponse[]>(`${config.certificadosApi_certificados}/listar-certificados`);
+
+    return this.httpClient.get<ICertificadoResponse[]>(`${config.certificadosApi_certificados}/listar-certificados/${usuarioData.id}`);
   }
 }

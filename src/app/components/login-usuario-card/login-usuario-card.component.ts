@@ -34,7 +34,7 @@ export class LoginUsuarioCardComponent {
 
   onSubmit() {
     this.LimparMensagens();
-    
+
     const usuarioLogin: IAutenticarUsuarioRequest = {
       email: this.form.value.email as string,
       senha: this.form.value.senha as string
@@ -47,9 +47,12 @@ export class LoginUsuarioCardComponent {
           this.router.navigate(['/certificados']);
         },
         error: (err: any) => {
-          console.log(err.error.errorMessages);
+          console.log(err);
 
-          if(err.error.errorMessages.length > 1){
+          if(err.error.errorMessages == undefined){
+            this.mensagem_erro = 'Não foi possivel autenticar o usuário. Tente novamente.';
+          }
+          else if(err.error.errorMessages.length > 1){
               this.mensagem_erro = (err.error.errorMessages as string[]).map(item => item).join('\n ') as string;
           }
           else {
@@ -67,5 +70,5 @@ export class LoginUsuarioCardComponent {
   onFocus() {
     this.LimparMensagens();
   }
-  
+
 }

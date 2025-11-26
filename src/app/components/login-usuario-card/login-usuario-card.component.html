@@ -3,7 +3,7 @@
     <div class="card-body">
       <img src="navbar/logo.svg" alt="logo" class="d-block mx-auto mb-3">
       <h4 class="card-title text-center mb-4">Login do Usuário</h4>
-      
+
       <div class="text-danger text-center">
           <strong>{{mensagem_erro}}</strong>
       </div>
@@ -13,19 +13,21 @@
           <label for="email" class="form-label">Email</label>
           <input type="email" formControlName="email" class="form-control" id="email" placeholder="Digite seu email" (focus)="onFocus()" required>
           @if(this.form.get('email')?.touched && this.form.get('email')?.invalid) {
-            <div class="text-danger d-flex align-items-center">
+            <div class="text-danger">
+              <small class="d-flex align-items-center">
               @if(this.form.get('email')?.errors?.['required']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> O email do usuário deve ser informado.</p>
-              }
-              @else if(this.form.get('email')?.errors?.['email']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> O email do usuário deve ser válido.</p>
-              }
-              @else if(this.form.get('email')?.errors?.['maxlength']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> O email do usuário deve ter no máximo 100 caracteres.</p>
-              }
+                  <i class="ph ph-warning-octagon me-1"></i>
+                  <p class="mb-0"> O email do usuário deve ser informado.</p>
+                }
+                @else if(this.form.get('email')?.errors?.['email']) {
+                  <i class="ph ph-warning-octagon me-1"></i>
+                  <p class="mb-0"> O email do usuário deve ser válido.</p>
+                }
+                @else if(this.form.get('email')?.errors?.['maxlength']) {
+                  <i class="ph ph-warning-octagon me-1"></i>
+                  <p class="mb-0"> O email do usuário deve ter no máximo 100 caracteres.</p>
+                }
+              </small>
             </div>
           }
         </div>
@@ -33,15 +35,17 @@
           <label for="senha" class="form-label">Senha</label>
           <input type="password" formControlName="senha" class="form-control" id="senha" placeholder="Digite sua Senha" (focus)="onFocus()" required>
           @if(this.form.get('senha')?.touched && this.form.get('senha')?.invalid) {
-            <div class="text-danger d-flex align-items-center">
-              @if(this.form.get('senha')?.errors?.['required']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> A senha do usuário deve ser informada.</p>
-              }
-              @else if(this.form.get('senha')?.errors?.['maxlength']) {
-                <i class="ph ph-warning-octagon"></i>
-                <p class="mb-0"> A senha do usuário deve ter no máximo 20 caracteres.</p>
-              }
+            <div class="text-danger">
+              <small class="d-flex align-items-center">
+                  @if(this.form.get('senha')?.errors?.['required']) {
+                    <i class="ph ph-warning-octagon me-1"></i>
+                    <p class="mb-0"> A senha do usuário deve ser informada.</p>
+                  }
+                  @else if(this.form.get('senha')?.errors?.['maxlength']) {
+                    <i class="ph ph-warning-octagon me-1"></i>
+                    <p class="mb-0"> A senha do usuário deve ter no máximo 20 caracteres.</p>
+                  }
+              </small>
             </div>
           }
         </div>

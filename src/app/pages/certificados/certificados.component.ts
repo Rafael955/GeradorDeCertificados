@@ -30,7 +30,10 @@ export class CertificadosComponent implements OnInit {
   ngOnInit(): void {
     //this.certificados = this.certificadosService.certificados;
 
-    this.certificadosService.listarCertificados()
+    const data = sessionStorage.getItem('dadosUsuario');
+    const usuario = JSON.parse(data as string);
+
+    this.certificadosService.listarCertificados(usuario)
       .pipe(take(1))
         .subscribe({
           next: (response: ICertificadoResponse[]) => {
@@ -38,7 +41,7 @@ export class CertificadosComponent implements OnInit {
               // Cria um objeto Date de JavaScript a partir da string dataEmissao
                 const dataB = new Date(b.dataEmissao).getTime();
                 const dataA = new Date(a.dataEmissao).getTime();
-                
+
                 // Ordenação Decrescente (Mais Recente Primeiro)
                 return dataB - dataA;
               });

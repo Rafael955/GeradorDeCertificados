@@ -11,13 +11,19 @@
             <input [(ngModel)]="atividade" (ngModelChange)="onAtividadeChange($event)" name="atividade" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida">
         </div>
         <div class="d-flex flex-wrap">
+          @if(atividadesFiltradas.length > 0) {
             @for (atividade of atividadesFiltradas; track $index) {
                     <app-item-atividade class="flex-fill" [nomeAtividade]="atividade.nome" [id]="atividade.id"></app-item-atividade>
                 }
+          }@else {
+            <div class="text-primary text-center">
+              <strong>Nenhuma atividade encontrada</strong>
+          </div>
+          }
         </div>
         }
         @else {
-            
+
             <div class="custom-card w-100">
                 <i class="ph ph-certificate"></i>
                 <div class="custom-warning-titles">
@@ -27,6 +33,6 @@
                 <app-secondary-button routerLink="/atividade/nova-atividade" textoBotao="Cadastrar atividade"></app-secondary-button>
             </div>
         }
-        
+
     </div>
 </app-base-ui>
