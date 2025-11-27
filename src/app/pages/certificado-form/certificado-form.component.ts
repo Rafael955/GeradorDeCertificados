@@ -5,7 +5,7 @@ import { FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/form
 import { CommonModule } from '@angular/common';
 import { Certificado } from '../../interfaces/certificados/certificado';
 import { CertificadoService } from '../../services/certificado.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { BaseUiComponent } from "../../components/base-ui/base-ui.component";
 import { ICertificadoRequest } from '../../interfaces/certificados/certificado-request';
@@ -28,7 +28,8 @@ import { IAtividadeRequest } from '../../interfaces/atividades/atividade-request
     MatAutocomplete,
     MatOption,
     MatAutocompleteTrigger,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
 ],
   templateUrl: './certificado-form.component.html',
   styleUrl: './certificado-form.component.css'
@@ -37,7 +38,7 @@ export class CertificadoFormComponent {
   @ViewChild('form') form! : NgForm
 
   atividades: IAtividadeResponse[] = [];
-  atividadesFiltradas: IAtividadeResponse[] = []; 
+  atividadesFiltradas: IAtividadeResponse[] = [];
   atividade: string = "";
 
   private readonly atividadeService = inject(AtividadeService);
@@ -74,7 +75,7 @@ export class CertificadoFormComponent {
   }
 
   adicionarAtividade() {
-    if(this.atividade.length == 0) 
+    if(this.atividade.length == 0)
       return;
 
     const atividadeAdicionada: IAtividadeRequest = {
@@ -102,7 +103,7 @@ export class CertificadoFormComponent {
       atividades: this.certificado.atividades,
       usuarioId: this.certificado.usuarioId
     }
-    
+
     this.certificadoService.criarCertificado(certificadoNovo)
       .pipe(take(1))
         .subscribe({
@@ -139,7 +140,7 @@ export class CertificadoFormComponent {
 
     const filterValue = value.toLowerCase();
 
-    return this.atividades.filter(atividade => 
+    return this.atividades.filter(atividade =>
       atividade.nome.toLowerCase().includes(filterValue)
     );
   }

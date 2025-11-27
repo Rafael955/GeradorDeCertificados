@@ -1,11 +1,17 @@
 <app-navbar></app-navbar>
 <app-base-ui>
     <form #form="ngForm" novalidate class="d-flex flex-column align-items-center">
-        <div class="content-titles">
+        <div class="d-flex justify-content-start align-items-center atividade-form w-100">
+            <div routerLink="/certificados" class="nav-item d-flex align-items-center btn-voltar align-self-start">
+                <i class="ph ph-arrow-left"></i>
+                <p class="mb-0">Voltar</p>
+            </div>
+        </div>
+        <div class="mb-3">
             <h1 class="fw-bold custom-title">Geração de certificados</h1>
             <p class="mb-4 custom-subtitle">Preencha o formulário para gerar um novo certificado</p>
         </div>
-        
+
         <div class="custom-card w-100">
             <h2 class="card-title">Novo certificado</h2>
             <div class="mb-3 custom-input-group">
@@ -32,7 +38,7 @@
             </div>
             <div class="atividade-group">
                 <label class="form-label">Lista de atividades</label>
-                <div class="item-list w-100"> 
+                <div class="item-list w-100">
                     @for (atividade of this.certificado.atividades; track $index) {
                         <div class="item">
                             <span class="item-text">{{ atividade.nome }}</span>
@@ -40,7 +46,7 @@
                                 <i class="ph-bold ph-x"></i>
                             </div>
                         </div>
-                        
+
                         @if($index < this.certificado.atividades.length - 1) {
                             <hr>
                         }
