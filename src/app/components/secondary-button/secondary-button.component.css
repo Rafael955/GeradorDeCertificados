@@ -20,3 +20,26 @@
 .custom-button i {
     width: 20px;;
 }
+
+.danger-button {
+    height: 40px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #FFF;
+    background:  #a93333;
+    cursor: pointer;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.danger-button:hover {
+ opacity: 90%;
+}
+
+.danger-button i {
+    width: 20px;;
+}

@@ -1,44 +1,50 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-logo" routerLink="/">
+        <a class="navbar-logo" routerLink="/certificados">
             <img src="navbar/logo.svg" alt="logo">
         </a>
-        <div class="collapse navbar-collapse justify-content-start">
-            <ul class="navbar-nav">
-                <li class="nav-item d-flex align-items-center">
-                  <li class="d-flex flex-row align-items-center">
-                    <i class="ph ph-medal" [ngClass]="{ 'active': rlaListaCertificados.isActive }"></i>
-                    <a class="nav-link p-0" #rlaListaCertificados="routerLinkActive" routerLink="/certificados" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de certificados</a>
-                  </li>
-                  <li class="d-flex flex-row align-items-center ms-3">
-                    <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaGerarCertificado.isActive }"></i>
-                    <a class="nav-link p-0" #rlaGerarCertificado="routerLinkActive" routerLink="/certificados/novo-certificado" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gerar certificado</a>
-                  </li>
-                  <li class="d-flex flex-row align-items-center ms-3">
-                    <i class="ph ph-note-pencil" [ngClass]="{ 'active': rlaListaAtividades.isActive }"></i>
-                    <a class="nav-link p-0" #rlaListaAtividades="routerLinkActive" routerLink="/atividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de atividades</a>
-                  </li>
-                  @if(isAdmin){
-                    <li class="d-flex flex-row align-items-center ms-3">
-                      <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaCadastrarAtividade.isActive }"></i>
-                      <a class="nav-link p-0" #rlaCadastrarAtividade="routerLinkActive" routerLink="/atividade/nova-atividade" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cadastrar nova atividade</a>
+
+        <button class="navbar-toggle" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen" aria-label="Abrir menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <div class="nav-menu" [class.open]="menuOpen">
+            <div class="nav-left collapse navbar-collapse justify-content-start" [class.show]="menuOpen">
+                <ul class="navbar-nav">
+                      <li class="nav-item d-flex flex-row align-items-center">
+                        <i class="ph ph-medal" [ngClass]="{ 'active': rlaListaCertificados.isActive }"></i>
+                        <a class="nav-link p-0" (click)="closeMenu()" #rlaListaCertificados="routerLinkActive" routerLink="/certificados" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de certificados</a>
+                      </li>
+                      <li class="nav-item d-flex flex-row align-items-center ms-3">
+                        <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaGerarCertificado.isActive }"></i>
+                        <a class="nav-link p-0" (click)="closeMenu()" #rlaGerarCertificado="routerLinkActive" routerLink="/certificados/novo-certificado" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gerar certificado</a>
+                      </li>
+                      <li class="nav-item d-flex flex-row align-items-center ms-3">
+                        <i class="ph ph-note-pencil" [ngClass]="{ 'active': rlaListaAtividades.isActive }"></i>
+                        <a class="nav-link p-0" (click)="closeMenu()" #rlaListaAtividades="routerLinkActive" routerLink="/atividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de atividades</a>
+                      </li>
+                      <ng-container *ngIf="isAdmin">
+                        <li class="nav-item d-flex flex-row align-items-center ms-3">
+                          <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaCadastrarAtividade.isActive }"></i>
+                          <a class="nav-link p-0" (click)="closeMenu()" #rlaCadastrarAtividade="routerLinkActive" routerLink="/atividade/nova-atividade" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cadastrar nova atividade</a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center ms-3">
+                          <i class="ph ph-users-four" [ngClass]="{ 'active': rlaListaUsuarios.isActive }"></i>
+                          <a class="nav-link p-0" (click)="closeMenu()" #rlaListaUsuarios="routerLinkActive" routerLink="/usuarios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de usuários</a>
+                        </li>
+                      </ng-container>
+                </ul>
+            </div>
+
+            <div class="nav-right collapse navbar-collapse justify-content-end" [class.show]="menuOpen">
+                <ul class="navbar-nav">
+                    <li class="nav-item d-flex align-items-center">
+                        <app-secondary-button [textoBotao]="'Usuário: ' + nomeUsuario" [phClass]="'ph ph-user'" data-bs-toggle="modal" data-bs-target="#painel_usuario"/>
                     </li>
-                    <li class="nav-item d-flex align-items-center ms-3">
-                      <i class="ph ph-users-four" [ngClass]="{ 'active': rlaListaUsuarios.isActive }"></i>
-                      <a class="nav-link p-0" #rlaListaUsuarios="routerLinkActive" routerLink="/usuarios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de usuários</a>
-                    </li>
-                  }
-            </ul>
-        </div>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item d-flex align-items-center">
-                    <!-- <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#painel_usuario">
-                        Usuário: <strong>{{ nomeUsuario }}</strong>
-                    </button> -->
-                    <app-secondary-button [textoBotao]="'Usuário: ' + nomeUsuario" [phClass]="'ph ph-user'" data-bs-toggle="modal" data-bs-target="#painel_usuario"/>
-                </li>
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>

@@ -1,0 +1,41 @@
+<div class="card p-3 custom-card">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <div class="fw-bold nome-usuario">{{ nomeUsuario }}</div>
+            <div class="d-flex flex-column">
+              <small class="small-date">Id: {{ idUsuario }}</small>
+              <small class="small-date">Email: {{ emailUsuario }}</small>
+              <small class="small-date">Perfil: {{ perfilUsuario }}</small>
+            </div>
+        </div>
+        <app-secondary-button textoBotao="Excluir Conta" [disabled]="perfilUsuario === 'Administrador' ? true : false" phClass="ph ph-trash" styleClass="danger-button" data-bs-toggle="modal" data-bs-target="#painel_confirma_exclusao"></app-secondary-button>
+    </div>
+</div>
+
+<div class="modal fade" id="painel_confirma_exclusao" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header bg-danger">
+            <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">
+            Aviso
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-2">
+            <strong>Deseja realmente excluir a conta do usuário {{ nomeUsuario }}?</strong>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onDelete()">
+            Sim
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            Não
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>

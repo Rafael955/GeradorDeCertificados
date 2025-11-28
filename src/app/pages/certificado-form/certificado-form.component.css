@@ -1,3 +1,7 @@
+.certificado-form {
+    max-width: 670px;
+}
+
 .btn-voltar {
     gap: 6px;
     cursor: pointer;

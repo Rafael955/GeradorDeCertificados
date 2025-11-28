@@ -12,5 +12,6 @@ import { Component, Input } from '@angular/core';
 export class SecondaryButtonComponent {
   @Input() textoBotao: string = '';
   @Input() phClass: string = '';
+  @Input() styleClass: string = 'custom-button';
   @Input() disabled: boolean | null = false;
 }

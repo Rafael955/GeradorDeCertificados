@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { PrimaryButtonComponent } from "../../components/primary-button/primary-button.component";
 import { SecondaryButtonComponent } from "../../components/secondary-button/secondary-button.component";
 import { FormsModule, NgForm, NgModel, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,7 @@ import { MatAutocomplete, MatOption, MatAutocompleteTrigger } from '@angular/mat
 import { AtividadeService } from '../../services/atividade.service';
 import { IAtividadeResponse } from '../../interfaces/atividades/atividade-response';
 import { IAtividadeRequest } from '../../interfaces/atividades/atividade-request';
+import { normalizeString } from '../../shared/utils/string-utils';
 
 @Component({
   selector: 'app-certificado-form',
@@ -36,6 +37,7 @@ import { IAtividadeRequest } from '../../interfaces/atividades/atividade-request
 })
 export class CertificadoFormComponent {
   @ViewChild('form') form! : NgForm
+  @ViewChildren('opt') options!: QueryList<MatOption>;
 
   atividades: IAtividadeResponse[] = [];
   atividadesFiltradas: IAtividadeResponse[] = [];
@@ -51,8 +53,13 @@ export class CertificadoFormComponent {
     this.atividadeService.listarAtividades()
       .subscribe({
         next:(response: IAtividadeResponse[]) => {
-          this.atividades = response;
-          this.atividadesFiltradas = response;
+          this.atividades = response.sort((a, b) => {
+            return a.nome.localeCompare(b.nome);
+          });
+
+          this.atividadesFiltradas = response.sort((a, b) => {
+            return a.nome.localeCompare(b.nome);
+          });
         },
         error: (err: any) => {
           console.log(err);
@@ -80,6 +87,11 @@ export class CertificadoFormComponent {
 
     const atividadeAdicionada: IAtividadeRequest = {
       nome: this.atividade
+    }
+
+    if(this.certificado.atividades.some(atividade => atividade.nome == atividadeAdicionada.nome)) {
+      alert("Atividade já adicionada");
+      return;
     }
 
     this.certificado.atividades.push(atividadeAdicionada);
@@ -138,15 +150,28 @@ export class CertificadoFormComponent {
   private _filter(value: string): IAtividadeResponse[] {
     if (!value) return this.atividades; // Se o valor for vazio, retorna todas
 
-    const filterValue = value.toLowerCase();
+    const filterValue = normalizeString(value);
 
     return this.atividades.filter(atividade =>
-      atividade.nome.toLowerCase().includes(filterValue)
+      normalizeString(atividade.nome).startsWith(filterValue)
     );
   }
 
   // Novo método para ser chamado quando o input muda
   onAtividadeChange(value: string) {
     this.atividadesFiltradas = this._filter(value);
+  }
+
+  onAutocompleteOpened() {
+    // Quando o autocomplete abrir, remove a seleção visual em todas as opções
+    this.options?.forEach(opt => {
+      try {
+        opt.deselect();
+      } catch (e) {
+        // se não for possível desselecionar, ignore silenciosamente
+      }
+    });
+
+    this.atividadesFiltradas = this._filter(this.atividade);
   }
 }

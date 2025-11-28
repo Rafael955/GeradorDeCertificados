@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <app-base-ui>
     <form #form="ngForm" novalidate class="d-flex flex-column align-items-center">
-        <div class="d-flex justify-content-start align-items-center atividade-form w-100">
+        <div class="d-flex justify-content-start align-items-center certificado-form w-100">
             <div routerLink="/certificados" class="nav-item d-flex align-items-center btn-voltar align-self-start">
                 <i class="ph ph-arrow-left"></i>
                 <p class="mb-0">Voltar</p>
@@ -27,9 +27,9 @@
             <div class="mb-3 d-flex align-items-end custom-input-group">
                 <div class="flex-grow-1 me-2">
                     <label for="atividade" class="form-label">Atividade</label>
-                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-autocomplete #auto="matAutocomplete" (opened)="onAutocompleteOpened()">
                         @for (atividade of atividadesFiltradas; track atividade.id) {
-                            <mat-option [value]="atividade.nome">{{atividade.nome}}</mat-option>
+                            <mat-option #opt [value]="atividade.nome">{{atividade.nome}}</mat-option>
                         }
                     </mat-autocomplete>
                     <input [(ngModel)]="atividade" (ngModelChange)="onAtividadeChange($event)" name="atividade" #atividadeRef="ngModel" maxlength="50" required id="atividade" type="text" class="form-control custom-input" placeholder="Atividade exercida" matInput [matAutocomplete]="auto">

@@ -28,15 +28,10 @@
                 <i class="ph ph-certificate"></i>
                 <div class="custom-warning-titles">
                     <h3 class="card-title">Nenhuma atividade cadastrada</h3>
-                    @if(atividades.length > 0){
                       <p class="card-subtitle">Cadastre atividades para inclusão em novos certificados</p>
-                    }
                 </div>
-                @if(atividades.length > 0) {
                   <app-secondary-button routerLink="/atividade/nova-atividade" textoBotao="Cadastrar atividade"></app-secondary-button>
-                }
             </div>
         }
-
     </div>
 </app-base-ui>

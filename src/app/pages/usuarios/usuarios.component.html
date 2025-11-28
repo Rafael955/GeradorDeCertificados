@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<app-base-ui>
+    <div class="d-flex flex-column align-items-center">
+        <div class="content-titles">
+            <h1 class="fw-bold custom-title">Usuários cadastrados</h1>
+            <p class="mb-4 custom-subtitle">Visualize todos os usuarios cadastrados no sistema</p>
+        </div>
+
+        @if(usuarios.length > 0){
+            <div class="list-users w-100">
+                @for (usuario of usuarios; track $index) {
+                    <app-item-usuario [nomeUsuario]="usuario.nomeUsuario" [emailUsuario]="usuario.email" [perfilUsuario]="usuario.perfil" [idUsuario]="usuario.id"></app-item-usuario>
+                }
+            </div>
+        }
+        @else {
+
+            <div class="custom-card w-100">
+                <i class="ph ph-certificate"></i>
+                <div class="custom-warning-titles">
+                    <h3 class="card-title">Nenhum usuario cadastrado</h3>
+                </div>
+            </div>
+        }
+
+    </div>
+</app-base-ui>

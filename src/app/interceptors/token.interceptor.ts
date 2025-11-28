@@ -3,7 +3,8 @@ import { config } from '../../environments/environment';
 
 const allowedUrls: string[] = [
   config.certificadosApi_atividades,
-  config.certificadosApi_certificados
+  config.certificadosApi_certificados,
+  config.certificadosApi_usuarios
 ]
 
 export const TokenInterceptor: HttpInterceptorFn = (request, next) => {
@@ -18,7 +19,7 @@ export const TokenInterceptor: HttpInterceptorFn = (request, next) => {
     setHeaders: {
       Authorization: `Bearer ${usuario.token}`
     }
-   });    
+   });
   }
 
   return next(request);

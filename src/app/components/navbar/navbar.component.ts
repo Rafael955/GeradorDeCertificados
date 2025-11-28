@@ -18,6 +18,15 @@ import { SecondaryButtonComponent } from "../secondary-button/secondary-button.c
 })
 export class NavbarComponent {
 
+  menuOpen: boolean = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
   id: any = "";
   nomeUsuario: any = "";
   email: any = "";
@@ -36,7 +45,7 @@ export class NavbarComponent {
     this.perfil = usuario.perfil;
     this.dataHoraAcesso = new Date(usuario.dataHoraAcesso);
 
-    if(this.perfil == 'Administrador') 
+    if(this.perfil == 'Administrador')
       this.isAdmin = true;
 
     console.log(usuario.dataHoraAcesso);
