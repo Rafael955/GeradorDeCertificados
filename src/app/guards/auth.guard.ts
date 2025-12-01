@@ -10,7 +10,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const usuario = JSON.parse(sessionStorage.getItem('dadosUsuario') as string);
- console.log(usuario);
+
   if (usuario !== null && isJwtExpired(usuario.token) == false) {
 
         if (adminOnlyRoutes.some(url => state.url.includes(url))) {
