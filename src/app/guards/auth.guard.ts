@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 
 const adminOnlyRoutes: string[] = [
-  '/atividade/nova-atividade',
   '/atividade/edicao-atividade/'
 ];
 

@@ -25,11 +25,11 @@
                         <i class="ph ph-note-pencil" [ngClass]="{ 'active': rlaListaAtividades.isActive }"></i>
                         <a class="nav-link p-0" (click)="closeMenu()" #rlaListaAtividades="routerLinkActive" routerLink="/atividades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de atividades</a>
                       </li>
+                      <li class="nav-item d-flex flex-row align-items-center ms-3">
+                        <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaCadastrarAtividade.isActive }"></i>
+                        <a class="nav-link p-0" (click)="closeMenu()" #rlaCadastrarAtividade="routerLinkActive" routerLink="/atividade/nova-atividade" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cadastrar nova atividade</a>
+                      </li>
                       <ng-container *ngIf="isAdmin">
-                        <li class="nav-item d-flex flex-row align-items-center ms-3">
-                          <i class="ph ph-circles-three-plus" [ngClass]="{ 'active': rlaCadastrarAtividade.isActive }"></i>
-                          <a class="nav-link p-0" (click)="closeMenu()" #rlaCadastrarAtividade="routerLinkActive" routerLink="/atividade/nova-atividade" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cadastrar nova atividade</a>
-                        </li>
                         <li class="nav-item d-flex align-items-center ms-3">
                           <i class="ph ph-users-four" [ngClass]="{ 'active': rlaListaUsuarios.isActive }"></i>
                           <a class="nav-link p-0" (click)="closeMenu()" #rlaListaUsuarios="routerLinkActive" routerLink="/usuarios" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lista de usuários</a>

@@ -1,7 +1,7 @@
 # Gerador de Certificados
 
-Aplicação Angular para gerenciar atividades e gerar certificados personalizados.
-O projeto fornece telas para autenticação, cadastro de usuários, criação/edição de certificados e atividades, além de um mecanismo para gerar um certificado visualmente (modelo em `public/certificate`).
+Aplicação Angular para gerenciar atividades e gerar certificados de conclusão de cursos.
+O projeto fornece telas para autenticação, cadastro de usuários, criação de certificados e criação/edição de atividades, além de um mecanismo para gerar um certificado visualmente (modelo em `public/certificate`) e realizar download do mesmo.
 
 ## Visão geral
 
